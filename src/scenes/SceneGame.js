@@ -17,7 +17,7 @@ export default class SceneGame extends Phaser.Scene {
     this.charactersGroup = this.physics.add.group();
 
     this.addToiletPaper();
-    this.addCharacter(VIRUS);
+    this.addRandomCharacter();
     this.addEvents();
 
     this.physics.add.collider(
@@ -58,26 +58,29 @@ export default class SceneGame extends Phaser.Scene {
 
     this.time.addEvent({
       delay: 3000,
-      callback: this.randomCharacters,
+      callback: this.addRandomCharacter,
       callbackScope: this,
       loop: true,
     });
   }
 
   addCharacter(characterName) {
-    const randomXPos = Phaser.Math.Between(0, this.cameras.main.width);
-    const top = 0;
-    const character = this.physics.add.image(randomXPos, top, characterName);
+    const characterWidth =
+      this.textures.get(characterName).getSourceImage().width * 0.1;
+    const randomXPos = Phaser.Math.Between(
+      0,
+      this.cameras.main.width - characterWidth
+    );
+
+    const character = this.physics.add
+      .image(randomXPos, 0, characterName)
+      .setOrigin(0);
     character.scale = 0.1;
-    const characterSize = {
-      width: character.width / 10,
-      height: character.height / 10,
-    };
     this.charactersGroup.add(character);
     character.setVelocityY(50);
   }
 
-  randomCharacters() {
+  addRandomCharacter() {
     const rand = Phaser.Math.Between(0, 100);
     rand > 50 ? this.addCharacter(VIRUS) : this.addCharacter(CELL);
   }
