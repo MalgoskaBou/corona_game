@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { BULLET, TOILET_PAPER, VIRUS, CELL } from "../utils/const";
+import { BULLET, TOILET_PAPER, VIRUS, CELL, MOVE_SPEED } from "../utils/const";
 import BulletsGroup from "../utils/Bullets";
 
 export default class SceneGame extends Phaser.Scene {
@@ -8,6 +8,8 @@ export default class SceneGame extends Phaser.Scene {
     this.load.image(TOILET_PAPER, "img/playerShip1_red.png");
     this.load.image(VIRUS, "img/coin.png");
     this.load.image(CELL, "img/flower.png");
+
+    this.cursor = this.input.keyboard.createCursorKeys();
   }
 
   create() {
@@ -23,14 +25,14 @@ export default class SceneGame extends Phaser.Scene {
     this.physics.add.collider(
       this.charactersGroup,
       this.bulletGroup,
-      this.hitVirus,
+      this.hitCharacter,
       null,
       this
     );
   }
 
-  hitVirus(enemy, bullet) {
-    enemy.destroy();
+  hitCharacter(character, bullet) {
+    character.destroy();
     bullet.setActive(false);
     bullet.setVisible(false);
     bullet.body.reset(0, 0);
@@ -42,31 +44,12 @@ export default class SceneGame extends Phaser.Scene {
     this.toiletPaper = this.add.image(centerX, bottom - 90, TOILET_PAPER);
   }
 
-  addEvents() {
-    this.input.on("pointermove", (pointer) => {
-      this.toiletPaper.x = pointer.x;
-    });
-
-    this.input.on("pointerdown", (pointer) => {
-      this.fireBullet();
-    });
-
-    this.inputKeys = [
-      this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
-      this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER),
-    ];
-
-    this.timer = this.time.addEvent({
-      delay: 3000,
-      callback: this.addRandomCharacter,
-      callbackScope: this,
-      loop: true,
-    });
-  }
-
   addCharacter(characterName) {
+    const characterScale = characterName === VIRUS ? 0.05 : 0.02;
+
     const characterWidth =
-      this.textures.get(characterName).getSourceImage().width * 0.1;
+      this.textures.get(characterName).getSourceImage().width * characterScale;
+
     const randomXPos = Phaser.Math.Between(
       0,
       this.cameras.main.width - characterWidth
@@ -75,7 +58,7 @@ export default class SceneGame extends Phaser.Scene {
     const character = this.physics.add
       .image(randomXPos, 0, characterName)
       .setOrigin(0);
-    character.scale = characterName === VIRUS ? 0.05 : 0.02;
+    character.scale = characterScale;
     this.charactersGroup.add(character);
     character.setVelocityY(50);
   }
@@ -87,6 +70,20 @@ export default class SceneGame extends Phaser.Scene {
 
   fireBullet() {
     this.bulletGroup.fireBullet(this.toiletPaper.x, this.toiletPaper.y - 20);
+  }
+
+  addEvents() {
+    this.inputKeys = [
+      this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
+      this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER),
+    ];
+
+    this.timer = this.time.addEvent({
+      delay: 3000,
+      callback: this.addRandomCharacter,
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   update() {
@@ -102,5 +99,12 @@ export default class SceneGame extends Phaser.Scene {
         console.log(this.charactersGroup.children);
       }
     });
+
+    if (this.cursor.left.isDown) {
+      this.toiletPaper.x -= MOVE_SPEED;
+    }
+    if (this.cursor.right.isDown) {
+      this.toiletPaper.x += MOVE_SPEED;
+    }
   }
 }
