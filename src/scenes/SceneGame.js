@@ -56,7 +56,7 @@ export default class SceneGame extends Phaser.Scene {
       this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER),
     ];
 
-    this.time.addEvent({
+    this.timer = this.time.addEvent({
       delay: 3000,
       callback: this.addRandomCharacter,
       callbackScope: this,
@@ -75,7 +75,7 @@ export default class SceneGame extends Phaser.Scene {
     const character = this.physics.add
       .image(randomXPos, 0, characterName)
       .setOrigin(0);
-    character.scale = 0.1;
+    character.scale = characterName === VIRUS ? 0.05 : 0.02;
     this.charactersGroup.add(character);
     character.setVelocityY(50);
   }
