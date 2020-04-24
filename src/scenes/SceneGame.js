@@ -1,6 +1,14 @@
 import Phaser from "phaser";
-import { BULLET, TOILET_PAPER, VIRUS, CELL, MOVE_SPEED } from "../utils/const";
+import {
+  BULLET,
+  TOILET_PAPER,
+  VIRUS,
+  CELL,
+  MOVE_SPEED,
+  CELL_BCK,
+} from "../utils/const";
 import BulletsGroup from "../utils/Bullets";
+import { getImageSize } from "../utils/helpers";
 
 export default class SceneGame extends Phaser.Scene {
   preload() {
@@ -8,13 +16,14 @@ export default class SceneGame extends Phaser.Scene {
     this.load.image(TOILET_PAPER, "img/playerShip1_red.png");
     this.load.image(VIRUS, "img/coin.png");
     this.load.image(CELL, "img/flower.png");
+    this.load.image(CELL_BCK, "img/cellBck.jpg");
 
     this.cursor = this.input.keyboard.createCursorKeys();
   }
 
   create() {
     this.cameras.main.setBackgroundColor(0x1d1923);
-
+    this.addBckTiles();
     this.bulletGroup = new BulletsGroup(this);
     this.charactersGroup = this.physics.add.group();
 
@@ -38,6 +47,18 @@ export default class SceneGame extends Phaser.Scene {
     bullet.body.reset(0, 0);
   }
 
+  addBckTiles() {
+    this.add
+      .tileSprite(
+        0,
+        0,
+        this.cameras.main.width,
+        this.cameras.main.height,
+        CELL_BCK
+      )
+      .setOrigin(0);
+  }
+
   addToiletPaper() {
     const centerX = this.cameras.main.width / 2;
     const bottom = this.cameras.main.height;
@@ -48,7 +69,7 @@ export default class SceneGame extends Phaser.Scene {
     const characterScale = characterName === VIRUS ? 0.05 : 0.02;
 
     const characterWidth =
-      this.textures.get(characterName).getSourceImage().width * characterScale;
+      getImageSize(characterName, this).width * characterScale;
 
     const randomXPos = Phaser.Math.Between(
       0,
