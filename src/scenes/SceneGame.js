@@ -22,6 +22,8 @@ export default class SceneGame extends Phaser.Scene {
   }
 
   create() {
+    this.points = 0;
+
     this.cameras.main.setBackgroundColor(0x1d1923);
     this.addBckTiles();
     this.bulletGroup = new BulletsGroup(this);
@@ -29,6 +31,10 @@ export default class SceneGame extends Phaser.Scene {
 
     this.addToiletPaper();
     this.addRandomCharacter();
+    this.pointsText = this.add.text(10, 10, "POINTS: 0", {
+      color: "#000000",
+      fontSize: this.cameras.main.width / 40,
+    });
     this.addEvents();
 
     this.physics.add.collider(
@@ -40,7 +46,15 @@ export default class SceneGame extends Phaser.Scene {
     );
   }
 
+  updatePoints() {
+    this.points++;
+    this.pointsText.setText(`POINTS: ${this.points}`);
+  }
+
   hitCharacter(character, bullet) {
+    if (character.isVirus) {
+      this.updatePoints();
+    }
     character.destroy();
     bullet.setActive(false);
     bullet.setVisible(false);
