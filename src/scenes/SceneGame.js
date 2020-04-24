@@ -79,6 +79,10 @@ export default class SceneGame extends Phaser.Scene {
     const character = this.physics.add
       .image(randomXPos, 0, characterName)
       .setOrigin(0);
+
+    characterName === VIRUS
+      ? (character.isVirus = true)
+      : (character.isVirus = false);
     character.scale = characterScale;
     this.charactersGroup.add(character);
     character.setVelocityY(50);
@@ -117,7 +121,7 @@ export default class SceneGame extends Phaser.Scene {
     this.charactersGroup.children.iterate((child) => {
       if (child?.y > this.cameras.main.height) {
         child.destroy();
-        console.log(this.charactersGroup.children);
+        console.log(child.isVirus);
       }
     });
 
