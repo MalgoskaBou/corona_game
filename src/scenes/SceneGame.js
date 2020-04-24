@@ -1,9 +1,5 @@
 import Phaser from "phaser";
-
-const BULLET = "bullet";
-const TOILET_PAPER = "paper";
-const VIRUS = "virus";
-const CELL = "cell";
+import { BULLET, TOILET_PAPER, VIRUS, CELL } from "../utils/const";
 
 class Bullet extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
