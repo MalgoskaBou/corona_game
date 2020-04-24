@@ -14,14 +14,14 @@ export default class SceneGame extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(0x1d1923);
 
     this.bulletGroup = new BulletsGroup(this);
-    this.enemiesGroup = this.physics.add.group();
+    this.charactersGroup = this.physics.add.group();
 
     this.addToiletPaper();
-    this.addVirus();
+    this.addCharacter(VIRUS);
     this.addEvents();
 
     this.physics.add.collider(
-      this.enemiesGroup,
+      this.charactersGroup,
       this.bulletGroup,
       this.hitVirus,
       null,
@@ -34,27 +34,6 @@ export default class SceneGame extends Phaser.Scene {
     bullet.setActive(false);
     bullet.setVisible(false);
     bullet.body.reset(0, 0);
-  }
-
-  //TRZEBA zapobiec dodawaniu elementów na kwawedzi sceny i skalować zgodnie z wysokością sceny
-  addVirus() {
-    const centerX = Phaser.Math.Between(0, this.cameras.main.width);
-    const top = 200;
-    const bullet = this.physics.add.image(centerX, top, VIRUS);
-    bullet.scale = 0.1;
-    const size = { width: bullet.width / 10, height: bullet.height / 10 };
-    console.log(size);
-    this.enemiesGroup.add(bullet);
-    bullet.setVelocityY(50);
-  }
-
-  addCells() {
-    const centerX = Phaser.Math.Between(0, this.cameras.main.width);
-    const top = 200;
-    const cell = this.physics.add.image(centerX, top, CELL);
-    cell.scale = 0.1;
-    this.enemiesGroup.add(cell);
-    cell.setVelocityY(50);
   }
 
   addToiletPaper() {
@@ -79,15 +58,28 @@ export default class SceneGame extends Phaser.Scene {
 
     this.time.addEvent({
       delay: 3000,
-      callback: this.randomEnemies,
+      callback: this.randomCharacters,
       callbackScope: this,
       loop: true,
     });
   }
 
-  randomEnemies() {
+  addCharacter(characterName) {
+    const randomXPos = Phaser.Math.Between(0, this.cameras.main.width);
+    const top = 0;
+    const character = this.physics.add.image(randomXPos, top, characterName);
+    character.scale = 0.1;
+    const characterSize = {
+      width: character.width / 10,
+      height: character.height / 10,
+    };
+    this.charactersGroup.add(character);
+    character.setVelocityY(50);
+  }
+
+  randomCharacters() {
     const rand = Phaser.Math.Between(0, 100);
-    rand > 50 ? this.addVirus() : this.addCells();
+    rand > 50 ? this.addCharacter(VIRUS) : this.addCharacter(CELL);
   }
 
   fireBullet() {
@@ -101,10 +93,10 @@ export default class SceneGame extends Phaser.Scene {
       }
     });
 
-    this.enemiesGroup.children.iterate((child) => {
+    this.charactersGroup.children.iterate((child) => {
       if (child?.y > this.cameras.main.height) {
         child.destroy();
-        console.log(this.enemiesGroup.children);
+        console.log(this.charactersGroup.children);
       }
     });
   }
