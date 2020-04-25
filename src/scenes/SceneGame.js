@@ -89,11 +89,6 @@ export default class SceneGame extends Phaser.Scene {
       .setScale(scale);
   }
 
-  updatePoints() {
-    this.points++;
-    this.pointsText.setText(`POINTS: ${this.points}`);
-  }
-
   addPointsText() {
     this.pointsText = this.add.text(10, 10, "POINTS: 0", {
       color: "#000000",
@@ -101,12 +96,17 @@ export default class SceneGame extends Phaser.Scene {
     });
   }
 
+  updatePoints() {
+    this.points++;
+    this.pointsText.setText(`POINTS: ${this.points}`);
+  }
+
   addToiletPaper() {
     const centerX = this.cameras.main.width / 2;
     const bottom = this.cameras.main.height;
     this.toiletPaper = this.add
       .sprite(centerX, bottom - 90, TOILET_PAPER)
-      .setScale(scaleImgToGameH(10, TOILET_PAPER, this));
+      .setScale(scaleImgToGameH(15, TOILET_PAPER, this));
   }
 
   loadToiletAnimation() {
@@ -133,8 +133,8 @@ export default class SceneGame extends Phaser.Scene {
   addCharacter(characterName) {
     const characterScale =
       characterName === VIRUS
-        ? scaleImgToGameH(1.2, VIRUS, this)
-        : scaleImgToGameH(1, CELL, this);
+        ? scaleImgToGameH(12, VIRUS, this)
+        : scaleImgToGameH(10, CELL, this);
 
     const characterWidth =
       getImageSize(characterName, this).width * characterScale;
@@ -151,9 +151,8 @@ export default class SceneGame extends Phaser.Scene {
     characterName === VIRUS
       ? (character.isVirus = true)
       : (character.isVirus = false);
-    character.scale = characterScale;
     this.charactersGroup.add(character);
-    character.setVelocityY(50);
+    character.setVelocityY(50).setScale(characterScale);
   }
 
   addRandomCharacter() {

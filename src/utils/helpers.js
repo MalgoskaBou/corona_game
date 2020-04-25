@@ -8,6 +8,6 @@ export const scaleTextToGameH = (scale, context) =>
 
 export const scaleImgToGameH = (scalePercent, imgKey, context) => {
   const scene = (context.cameras.main.height * scalePercent) / 100;
-  const img = (scene * 100) / getImageSize(imgKey, context).width;
-  return img / 10;
+  const img = (scene * 100) / getImageSize(imgKey, context).height;
+  return img / 100;
 };
