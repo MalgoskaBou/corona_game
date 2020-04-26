@@ -14,6 +14,7 @@ import {
   addToiletPaper,
   loadToiletAnimation,
 } from "../utils/characters";
+import { addBckTiles } from "../utils/backgroundTiles";
 
 export default class SceneGame extends Phaser.Scene {
   preload() {
@@ -32,7 +33,7 @@ export default class SceneGame extends Phaser.Scene {
   create() {
     this.points = 0;
 
-    this.addBckTiles();
+    addBckTiles(0.3, CELL_BCK, this);
     this.bulletGroup = new BulletsGroup(this);
     this.charactersGroup = this.physics.add.group();
 
@@ -74,20 +75,6 @@ export default class SceneGame extends Phaser.Scene {
     if (this.cursor.right.isDown) {
       this.toiletPaper.x += MOVE_SPEED;
     }
-  }
-
-  addBckTiles() {
-    const scale = 0.3;
-    this.add
-      .tileSprite(
-        0,
-        0,
-        this.cameras.main.width / scale,
-        this.cameras.main.height / scale,
-        CELL_BCK
-      )
-      .setOrigin(0)
-      .setScale(scale);
   }
 
   hitCharacter(character, bullet) {
