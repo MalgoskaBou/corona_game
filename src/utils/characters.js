@@ -48,5 +48,5 @@ const addCharacter = (characterName, context) => {
 
 export const addRandomCharacter = (context) => {
   const rand = Phaser.Math.Between(0, 100);
-  rand > 50 ? addCharacter(VIRUS, context) : addCharacter(CELL, context);
+  rand > 10 ? addCharacter(VIRUS, context) : addCharacter(CELL, context);
 };
