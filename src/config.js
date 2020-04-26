@@ -1,9 +1,11 @@
 import Phaser from "phaser";
 import SceneMain from "./scenes/mainScene";
 import SceneGame from "./scenes/SceneGame";
+import { isMobileDevice } from "./utils/isMobile";
 
 export const config = {
-  width: "100%",
+  isMobile: isMobileDevice(),
+  width: isMobileDevice() ? "100%" : "50%",
   height: "100%",
   type: Phaser.AUTO,
   physics: {
