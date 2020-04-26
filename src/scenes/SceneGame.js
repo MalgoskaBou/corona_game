@@ -15,6 +15,7 @@ import {
   loadToiletAnimation,
 } from "../utils/characters";
 import { addBckTiles } from "../utils/backgroundTiles";
+import { hitCharacter, fireBullet } from "../utils/shooting";
 
 export default class SceneGame extends Phaser.Scene {
   preload() {
@@ -34,6 +35,7 @@ export default class SceneGame extends Phaser.Scene {
     this.points = 0;
 
     addBckTiles(0.3, CELL_BCK, this);
+
     this.bulletGroup = new BulletsGroup(this);
     this.charactersGroup = this.physics.add.group();
 
@@ -47,7 +49,7 @@ export default class SceneGame extends Phaser.Scene {
     this.physics.add.collider(
       this.charactersGroup,
       this.bulletGroup,
-      this.hitCharacter,
+      (character, bullet) => hitCharacter(character, bullet, this),
       null,
       this
     );
@@ -56,7 +58,7 @@ export default class SceneGame extends Phaser.Scene {
   update() {
     this.inputKeys.forEach((key) => {
       if (Phaser.Input.Keyboard.JustDown(key)) {
-        this.fireBullet();
+        fireBullet(this);
       }
     });
 
@@ -75,21 +77,6 @@ export default class SceneGame extends Phaser.Scene {
     if (this.cursor.right.isDown) {
       this.toiletPaper.x += MOVE_SPEED;
     }
-  }
-
-  hitCharacter(character, bullet) {
-    if (character.isVirus) {
-      updatePoints(this);
-    }
-    character.destroy();
-    bullet.setActive(false);
-    bullet.setVisible(false);
-    bullet.body.reset(0, 0);
-  }
-
-  fireBullet() {
-    this.bulletGroup.fireBullet(this.toiletPaper.x, this.toiletPaper.y - 20);
-    this.toiletPaper.play("fire");
   }
 
   addEvents() {
