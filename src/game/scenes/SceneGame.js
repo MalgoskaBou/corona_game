@@ -7,15 +7,15 @@ import {
   MOVE_SPEED,
   CELL_BCK,
 } from "../utils/const";
-import BulletsGroup from "../utils/Bullets";
-import { addPointsText, updatePoints } from "../utils/points";
+import BulletsGroup from "../gameElements/Bullets";
+import { addPointsText, updatePoints } from "../gameElements/points";
 import {
   addRandomCharacter,
   addToiletPaper,
   loadToiletAnimation,
-} from "../utils/characters";
-import { addBckTiles } from "../utils/backgroundTiles";
-import { hitCharacter, fireBullet } from "../utils/shooting";
+} from "../gameElements/characters";
+import { addBckTiles } from "../gameElements/backgroundTiles";
+import { hitCharacter, fireBullet } from "../gameElements/shooting";
 
 export default class SceneGame extends Phaser.Scene {
   preload() {

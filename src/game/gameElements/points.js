@@ -1,4 +1,4 @@
-import { scaleTextToGameH } from "./helpers";
+import { scaleTextToGameH } from "../utils/helpers";
 
 export const addPointsText = (context) => {
   context.pointsText = context.add.text(10, 10, "POINTS: 0", {

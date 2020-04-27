@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-import { TOILET_PAPER, CELL, VIRUS } from "./const";
-import { scaleImgToGameH, getImageSize } from "./helpers";
+import { TOILET_PAPER, CELL, VIRUS } from "../utils/const";
+import { scaleImgToGameH, getImageSize } from "../utils/helpers";
 
 export const addToiletPaper = (context) => {
   const centerX = context.cameras.main.width / 2;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { IonPhaser } from "@ion-phaser/react";
-import { config } from "./config";
+import { config } from "./game/config";
 
 class App extends Component {
   state = {
@@ -10,7 +10,12 @@ class App extends Component {
 
   render() {
     const { initialize, game } = this.state;
-    return <IonPhaser game={game} initialize={initialize} />;
+    return (
+      <>
+        <IonPhaser game={game} initialize={initialize} />
+        <div>points</div>
+      </>
+    );
   }
 }
 
