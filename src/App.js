@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useMemo } from "react";
 import { IonPhaser } from "@ion-phaser/react";
 import { config } from "./game/config";
 import { useSelector } from "react-redux";
@@ -14,12 +14,16 @@ const App = () => {
     game: config,
   };
   const points = useSelector(getPoints);
-
   const { initialize, game } = state;
+  const pGame = useMemo(
+    () => <IonPhaser game={game} initialize={initialize} />,
+    [initialize, game]
+  );
+
   return (
     <div style={style}>
-      <IonPhaser game={game} initialize={initialize} />
-      <div>points {points}</div>
+      {pGame}
+      <div>points {points || 0}</div>
     </div>
   );
 };
