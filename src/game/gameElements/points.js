@@ -1,6 +1,7 @@
 import { scaleTextToGameH } from "../utils/helpers";
 import { store } from "../../redux/store";
 import { updatePoints as updatePointsAction } from "../../redux/actions/updatePoints";
+import { getPoints } from "../../redux/reducers/pointReducer";
 
 export const addPointsText = (context) => {
   context.pointsText = context.add.text(10, 10, "POINTS: 0", {
@@ -10,7 +11,6 @@ export const addPointsText = (context) => {
 };
 
 export const updatePoints = (context) => {
-  const { points } = store.getState();
-  store.dispatch(updatePointsAction(points ?? 0));
-  context.pointsText.setText(`POINTS: ${store.getState().points}`);
+  store.dispatch(updatePointsAction(getPoints(store.getState()) ?? 0));
+  context.pointsText.setText(`POINTS: ${getPoints(store.getState())}`);
 };

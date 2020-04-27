@@ -8,3 +8,5 @@ export function pointReducer(state = {}, action) {
       return state;
   }
 }
+
+export const getPoints = (state) => state.points;

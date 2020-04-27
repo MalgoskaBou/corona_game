@@ -1,22 +1,27 @@
 import React, { Component } from "react";
 import { IonPhaser } from "@ion-phaser/react";
 import { config } from "./game/config";
+import { useSelector } from "react-redux";
+import { getPoints } from "./redux/reducers/pointReducer";
 
-class App extends Component {
-  state = {
+const style = {
+  display: "flex",
+  height: "100vh",
+};
+const App = () => {
+  const state = {
     initialize: true,
     game: config,
   };
+  const points = useSelector(getPoints);
 
-  render() {
-    const { initialize, game } = this.state;
-    return (
-      <>
-        <IonPhaser game={game} initialize={initialize} />
-        <div>points</div>
-      </>
-    );
-  }
-}
+  const { initialize, game } = state;
+  return (
+    <div style={style}>
+      <IonPhaser game={game} initialize={initialize} />
+      <div>points {points}</div>
+    </div>
+  );
+};
 
 export default App;
