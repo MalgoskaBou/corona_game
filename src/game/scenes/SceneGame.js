@@ -16,7 +16,6 @@ import {
 } from "../gameElements/characters";
 import { addBckTiles } from "../gameElements/backgroundTiles";
 import { hitCharacter, fireBullet } from "../gameElements/shooting";
-
 export default class SceneGame extends Phaser.Scene {
   preload() {
     this.load.image(BULLET, "img/laserBlue02.png");
@@ -32,8 +31,6 @@ export default class SceneGame extends Phaser.Scene {
   }
 
   create() {
-    this.points = 0;
-
     addBckTiles(0.3, CELL_BCK, this);
 
     this.bulletGroup = new BulletsGroup(this);
