@@ -83,10 +83,17 @@ export default class SceneGame extends Phaser.Scene {
       }
     });
 
-    if (this.cursor.left.isDown) {
+    if (
+      this.cursor.left.isDown &&
+      this.toiletPaper.x > this.toiletPaper.displayWidth / 2
+    ) {
       this.toiletPaper.x -= MOVE_SPEED;
     }
-    if (this.cursor.right.isDown) {
+    if (
+      this.cursor.right.isDown &&
+      this.toiletPaper.x <
+        this.cameras.main.width - this.toiletPaper.displayWidth / 2
+    ) {
       this.toiletPaper.x += MOVE_SPEED;
     }
   }
