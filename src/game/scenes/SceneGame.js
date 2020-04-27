@@ -6,6 +6,10 @@ import {
   CELL,
   MOVE_SPEED,
   CELL_BCK,
+  SHOOT_AUDIO,
+  VIRUS_AUDIO,
+  CELL_AUDIO,
+  CELL_HOME_AUDIO,
 } from "../utils/const";
 import BulletsGroup from "../gameElements/Bullets";
 import { addPointsText, updatePoints } from "../gameElements/points";
@@ -27,6 +31,11 @@ export default class SceneGame extends Phaser.Scene {
       frameHeight: 300,
     });
 
+    this.load.audio(SHOOT_AUDIO, "sounds/shot2.mp3");
+    this.load.audio(VIRUS_AUDIO, "sounds/virus2.mp3");
+    this.load.audio(CELL_AUDIO, "sounds/cell.mp3");
+    this.load.audio(CELL_HOME_AUDIO, "sounds/cell_home.mp3");
+
     this.cursor = this.input.keyboard.createCursorKeys();
   }
 
@@ -42,6 +51,11 @@ export default class SceneGame extends Phaser.Scene {
 
     loadToiletAnimation(this);
     addToiletPaper(this);
+
+    this.shoot_audio = this.sound.add(SHOOT_AUDIO);
+    this.virus_audio = this.sound.add(VIRUS_AUDIO);
+    this.cell_audio = this.sound.add(CELL_AUDIO);
+    this.cell_home_audio = this.sound.add(CELL_HOME_AUDIO);
 
     this.physics.add.collider(
       this.charactersGroup,
@@ -64,6 +78,7 @@ export default class SceneGame extends Phaser.Scene {
         child.destroy();
         if (!child.isVirus) {
           updatePoints(this);
+          this.cell_home_audio.play();
         }
       }
     });

@@ -3,7 +3,11 @@ import { updatePoints } from "./points";
 export const hitCharacter = (character, bullet, context) => {
   if (character.isVirus) {
     updatePoints(context);
+    context.virus_audio.play();
+  } else {
+    context.cell_audio.play();
   }
+
   character.destroy();
   bullet.setActive(false);
   bullet.setVisible(false);
@@ -16,4 +20,5 @@ export const fireBullet = (context) => {
     context.toiletPaper.y - 20
   );
   context.toiletPaper.play("fire");
+  context.shoot_audio.play();
 };
