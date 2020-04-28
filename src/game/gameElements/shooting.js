@@ -11,7 +11,7 @@ export const hitCharacter = (character, bullet, context) => {
   character.destroy();
   bullet.setActive(false);
   bullet.setVisible(false);
-  bullet.body.reset(0, 0);
+  bullet.body.reset(-20, 0);
 };
 
 export const fireBullet = (context) => {

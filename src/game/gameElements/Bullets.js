@@ -32,6 +32,7 @@ export default class BulletsGroup extends Phaser.Physics.Arcade.Group {
       active: false,
       visible: false,
       classType: Bullet,
+      setXY: { x: -20, y: 0 },
     });
   }
 
