@@ -77,7 +77,7 @@ export default class SceneGame extends Phaser.Scene {
     });
 
     this.charactersGroup.children.iterate((child) => {
-      if (child?.y > this.cameras.main.height) {
+      if (child?.y > this.cameras.main.height - child?.displayWidth) {
         child.destroy();
         if (!child.isVirus) {
           updatePoints(this);
