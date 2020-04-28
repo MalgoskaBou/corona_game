@@ -16,7 +16,7 @@ export const addBckTiles = (scale, imgKey, context) => {
 export const addBottomTiles = (scale, imgKey, context) => {
   const imgHeight = getImageSize(imgKey, context).height;
 
-  context.bottomTails = context.add
+  context.add
     .tileSprite(
       0,
       context.cameras.main.height,
@@ -25,5 +25,6 @@ export const addBottomTiles = (scale, imgKey, context) => {
       imgKey
     )
     .setOrigin(0, 1)
-    .setScale(scale);
+    .setScale(scale)
+    .setDepth(1);
 };
