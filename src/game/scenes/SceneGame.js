@@ -6,6 +6,7 @@ import {
   CELL,
   MOVE_SPEED,
   CELL_BCK,
+  CELLS_BOTTOM,
   SHOOT_AUDIO,
   VIRUS_AUDIO,
   CELL_AUDIO,
@@ -18,7 +19,7 @@ import {
   addToiletPaper,
   loadToiletAnimation,
 } from "../gameElements/characters";
-import { addBckTiles } from "../gameElements/backgroundTiles";
+import { addBckTiles, addBottomTiles } from "../gameElements/backgroundTiles";
 import { hitCharacter, fireBullet } from "../gameElements/shooting";
 export default class SceneGame extends Phaser.Scene {
   preload() {
@@ -26,6 +27,7 @@ export default class SceneGame extends Phaser.Scene {
     this.load.image(VIRUS, "img/virus.png");
     this.load.image(CELL, "img/cell.png");
     this.load.image(CELL_BCK, "img/cellBck.jpg");
+    this.load.image(CELLS_BOTTOM, "img/cells_bottom.png");
     this.load.spritesheet(TOILET_PAPER, "img/toilet_paper.png", {
       frameWidth: 300,
       frameHeight: 300,
@@ -41,6 +43,7 @@ export default class SceneGame extends Phaser.Scene {
 
   create() {
     addBckTiles(0.3, CELL_BCK, this);
+    addBottomTiles(1, CELLS_BOTTOM, this);
 
     this.bulletGroup = new BulletsGroup(this);
     this.charactersGroup = this.physics.add.group();

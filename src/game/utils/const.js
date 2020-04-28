@@ -8,6 +8,7 @@ const SHOOT_AUDIO = "shoot_audio";
 const VIRUS_AUDIO = "virus_audio";
 const CELL_AUDIO = "cell_audio";
 const CELL_HOME_AUDIO = "cell_home_audio";
+const CELLS_BOTTOM = "cells_bottom";
 
 export {
   BULLET,
@@ -20,4 +21,5 @@ export {
   VIRUS_AUDIO,
   CELL_AUDIO,
   CELL_HOME_AUDIO,
+  CELLS_BOTTOM,
 };
