@@ -22,3 +22,12 @@ export const loadAnimation = (spriteKey, animKey, context) => {
 
   context.anims.create(config);
 };
+
+export const animComplete = (animation, frame, target, context) => {
+  context.tweens.add({
+    targets: target,
+    duration: 3000,
+    alpha: 0,
+    onComplete: () => target.destroy(),
+  });
+};

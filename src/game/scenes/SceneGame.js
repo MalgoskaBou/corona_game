@@ -13,13 +13,14 @@ import {
   CELL_AUDIO,
   CELL_HOME_AUDIO,
   FIRE_ANIMATION_KEY,
+  CELL_ANIMATION_KEY,
 } from "../utils/const";
 import BulletsGroup from "../gameElements/Bullets";
 import { addPointsText, updatePoints } from "../gameElements/points";
 import { addRandomCharacter, addToiletPaper } from "../gameElements/characters";
 import { addBckTiles, addBottomTiles } from "../gameElements/backgroundTiles";
 import { hitCharacter, fireBullet } from "../gameElements/shooting";
-import { loadAnimation } from "../utils/helpers";
+import { loadAnimation, scaleImgToGameH, animComplete } from "../utils/helpers";
 export default class SceneGame extends Phaser.Scene {
   preload() {
     this.load.image(BULLET, "img/laserBlue02.png");
@@ -58,6 +59,8 @@ export default class SceneGame extends Phaser.Scene {
     loadAnimation(TOILET_PAPER, FIRE_ANIMATION_KEY, this);
     addToiletPaper(this);
 
+    loadAnimation(CELL_ANIMATION, CELL_ANIMATION_KEY, this);
+
     this.shoot_audio = this.sound.add(SHOOT_AUDIO);
     this.virus_audio = this.sound.add(VIRUS_AUDIO);
     this.cell_audio = this.sound.add(CELL_AUDIO);
@@ -81,11 +84,23 @@ export default class SceneGame extends Phaser.Scene {
 
     this.charactersGroup.children.iterate((child) => {
       if (child?.y > this.cameras.main.height - child?.displayWidth) {
-        child.destroy();
         if (!child.isVirus) {
           updatePoints(this);
           this.cell_home_audio.play();
+          this.cellAnimation = this.add
+            .sprite(child.x, child.y, CELL_ANIMATION)
+            .setOrigin(0)
+            .setDepth(1)
+            .setScale(scaleImgToGameH(10, CELL_ANIMATION, this));
+          this.cellAnimation.on(
+            "animationcomplete",
+            (animation, frame) =>
+              animComplete(animation, frame, this.cellAnimation, this),
+            this
+          );
+          this.cellAnimation.play(CELL_ANIMATION_KEY);
         }
+        child.destroy();
       }
     });
 
