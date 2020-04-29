@@ -29,9 +29,12 @@ const addCharacter = (characterName, context) => {
     .image(randomXPos, 0, characterName)
     .setOrigin(0);
 
-  characterName === VIRUS
-    ? (character.isVirus = true)
-    : (character.isVirus = false);
+  if (characterName === VIRUS) {
+    character.isVirus = true;
+  } else {
+    character.isVirus = false;
+    character.setDepth(1);
+  }
   context.charactersGroup.add(character);
   character.setVelocityY(50).setScale(characterScale);
 };
