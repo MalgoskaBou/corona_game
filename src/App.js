@@ -4,10 +4,21 @@ import { config } from "./game/config";
 import { useSelector } from "react-redux";
 import { getPoints } from "./redux/reducers/pointReducer";
 
-const style = {
+const reactDiv = {
   display: "flex",
   height: "100vh",
 };
+const infoDiv = {
+  padding: "20px",
+};
+
+const img = {
+  height: "35px",
+  width: "35px",
+  position: "relative",
+  top: "14px",
+};
+
 const App = () => {
   const state = {
     initialize: true,
@@ -21,9 +32,17 @@ const App = () => {
   );
 
   return (
-    <div style={style}>
+    <div style={reactDiv}>
       {pGame}
-      <div>points {points || 0}</div>
+      <div style={infoDiv}>
+        <p>points {points || 0}</p>
+        <p>
+          Morduj wirusa -> <img src="img/virus.png" style={img} />
+        </p>
+        <p>
+          Nie morduj komórki -> <img src="img/cell.png" style={img} />
+        </p>
+      </div>
     </div>
   );
 };
