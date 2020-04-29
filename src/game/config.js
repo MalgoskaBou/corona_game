@@ -5,7 +5,7 @@ import { isMobileDevice } from "./utils/isMobile";
 
 export const config = {
   isMobile: isMobileDevice(),
-  width: isMobileDevice() ? "100%" : "50%",
+  width: isMobileDevice() ? "100%" : 800,
   height: "100%",
   type: Phaser.AUTO,
   physics: {
