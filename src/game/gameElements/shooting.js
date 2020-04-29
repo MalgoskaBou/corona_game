@@ -1,4 +1,5 @@
 import { updatePoints } from "./points";
+import { FIRE_ANIMATION_KEY } from "../utils/const";
 
 export const hitCharacter = (character, bullet, context) => {
   if (character.isVirus) {
@@ -19,6 +20,6 @@ export const fireBullet = (context) => {
     context.toiletPaper.x,
     context.toiletPaper.y - 20
   );
-  context.toiletPaper.play("fire");
+  context.toiletPaper.play(FIRE_ANIMATION_KEY);
   context.shoot_audio.play();
 };

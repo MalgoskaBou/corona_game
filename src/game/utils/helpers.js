@@ -11,3 +11,14 @@ export const scaleImgToGameH = (scalePercent, imgKey, context) => {
   const img = (scene * 100) / getImageSize(imgKey, context).height;
   return img / 100;
 };
+
+export const loadAnimation = (spriteKey, animKey, context) => {
+  const config = {
+    key: animKey,
+    frames: context.anims.generateFrameNumbers(spriteKey),
+    frameRate: 14,
+    repeat: 0,
+  };
+
+  context.anims.create(config);
+};

@@ -11,17 +11,6 @@ export const addToiletPaper = (context) => {
     .setDepth(1);
 };
 
-export const loadToiletAnimation = (context) => {
-  const config = {
-    key: "fire",
-    frames: context.anims.generateFrameNumbers(TOILET_PAPER),
-    frameRate: 14,
-    repeat: 0,
-  };
-
-  context.anims.create(config);
-};
-
 const addCharacter = (characterName, context) => {
   const characterScale =
     characterName === VIRUS

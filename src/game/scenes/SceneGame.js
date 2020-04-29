@@ -7,20 +7,19 @@ import {
   MOVE_SPEED,
   CELL_BCK,
   CELLS_BOTTOM,
+  CELL_ANIMATION,
   SHOOT_AUDIO,
   VIRUS_AUDIO,
   CELL_AUDIO,
   CELL_HOME_AUDIO,
+  FIRE_ANIMATION_KEY,
 } from "../utils/const";
 import BulletsGroup from "../gameElements/Bullets";
 import { addPointsText, updatePoints } from "../gameElements/points";
-import {
-  addRandomCharacter,
-  addToiletPaper,
-  loadToiletAnimation,
-} from "../gameElements/characters";
+import { addRandomCharacter, addToiletPaper } from "../gameElements/characters";
 import { addBckTiles, addBottomTiles } from "../gameElements/backgroundTiles";
 import { hitCharacter, fireBullet } from "../gameElements/shooting";
+import { loadAnimation } from "../utils/helpers";
 export default class SceneGame extends Phaser.Scene {
   preload() {
     this.load.image(BULLET, "img/laserBlue02.png");
@@ -29,6 +28,10 @@ export default class SceneGame extends Phaser.Scene {
     this.load.image(CELL_BCK, "img/cellBck.jpg");
     this.load.image(CELLS_BOTTOM, "img/cells_bottom.png");
     this.load.spritesheet(TOILET_PAPER, "img/toilet_paper.png", {
+      frameWidth: 300,
+      frameHeight: 300,
+    });
+    this.load.spritesheet(CELL_ANIMATION, "img/cell_animation.png", {
       frameWidth: 300,
       frameHeight: 300,
     });
@@ -52,7 +55,7 @@ export default class SceneGame extends Phaser.Scene {
     addPointsText(this);
     this.addEvents();
 
-    loadToiletAnimation(this);
+    loadAnimation(TOILET_PAPER, FIRE_ANIMATION_KEY, this);
     addToiletPaper(this);
 
     this.shoot_audio = this.sound.add(SHOOT_AUDIO);
