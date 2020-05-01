@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { addRandomCharacter } from "./characters";
+import { hitCharacter } from "./shooting";
 
 export const addEvents = (context) => {
   context.inputKeys = [
@@ -13,4 +14,12 @@ export const addEvents = (context) => {
     callbackScope: context,
     loop: true,
   });
+
+  context.physics.add.collider(
+    context.charactersGroup,
+    context.bulletGroup,
+    (character, bullet) => hitCharacter(character, bullet, context),
+    null,
+    context
+  );
 };

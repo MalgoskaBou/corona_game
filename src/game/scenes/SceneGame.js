@@ -19,7 +19,7 @@ import BulletsGroup from "../gameElements/Bullets";
 import { addPointsText, updatePoints } from "../gameElements/points";
 import { addRandomCharacter, addToiletPaper } from "../gameElements/characters";
 import { addBckTiles, addBottomTiles } from "../gameElements/backgroundTiles";
-import { hitCharacter, fireBullet } from "../gameElements/shooting";
+import { fireBullet } from "../gameElements/shooting";
 import { loadAnimation, scaleImgToGameH, animComplete } from "../utils/helpers";
 import { addEvents } from "../gameElements/events";
 export default class SceneGame extends Phaser.Scene {
@@ -55,25 +55,18 @@ export default class SceneGame extends Phaser.Scene {
 
     addRandomCharacter(this);
     addPointsText(this);
-    addEvents(this);
 
     loadAnimation(TOILET_PAPER, FIRE_ANIMATION_KEY, this);
     addToiletPaper(this);
 
     loadAnimation(CELL_ANIMATION, CELL_ANIMATION_KEY, this);
 
+    addEvents(this);
+
     this.shoot_audio = this.sound.add(SHOOT_AUDIO);
     this.virus_audio = this.sound.add(VIRUS_AUDIO);
     this.cell_audio = this.sound.add(CELL_AUDIO);
     this.cell_home_audio = this.sound.add(CELL_HOME_AUDIO);
-
-    this.physics.add.collider(
-      this.charactersGroup,
-      this.bulletGroup,
-      (character, bullet) => hitCharacter(character, bullet, this),
-      null,
-      this
-    );
   }
 
   update() {
