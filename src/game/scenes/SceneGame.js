@@ -14,6 +14,8 @@ import {
   CELL_HOME_AUDIO,
   FIRE_ANIMATION_KEY,
   CELL_ANIMATION_KEY,
+  ARROW_BTN,
+  FIRE_BTN,
 } from "../utils/const";
 import BulletsGroup from "../gameElements/Bullets";
 import { addPointsText, updatePoints } from "../gameElements/points";
@@ -22,6 +24,7 @@ import { addBckTiles, addBottomTiles } from "../gameElements/backgroundTiles";
 import { fireBullet } from "../gameElements/shooting";
 import { loadAnimation, scaleImgToGameH, animComplete } from "../utils/helpers";
 import { addEvents } from "../gameElements/events";
+import { addButtons } from "../gameElements/buttons";
 export default class SceneGame extends Phaser.Scene {
   preload() {
     this.load.image(BULLET, "img/laserBlue02.png");
@@ -29,6 +32,9 @@ export default class SceneGame extends Phaser.Scene {
     this.load.image(CELL, "img/cell.png");
     this.load.image(CELL_BCK, "img/cellBck.jpg");
     this.load.image(CELLS_BOTTOM, "img/cells_bottom.png");
+    this.load.image(ARROW_BTN, "img/arrow_btn.png");
+    this.load.image(FIRE_BTN, "img/fire_btn.png");
+
     this.load.spritesheet(TOILET_PAPER, "img/toilet_paper.png", {
       frameWidth: 300,
       frameHeight: 300,
@@ -54,12 +60,12 @@ export default class SceneGame extends Phaser.Scene {
     this.charactersGroup = this.physics.add.group();
 
     addRandomCharacter(this);
-    addPointsText(this);
-
     loadAnimation(TOILET_PAPER, FIRE_ANIMATION_KEY, this);
     addToiletPaper(this);
-
     loadAnimation(CELL_ANIMATION, CELL_ANIMATION_KEY, this);
+
+    addPointsText(this);
+    addButtons(this);
 
     addEvents(this);
 

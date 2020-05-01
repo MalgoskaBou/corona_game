@@ -9,6 +9,8 @@ const VIRUS_AUDIO = "virus_audio";
 const CELL_AUDIO = "cell_audio";
 const CELL_HOME_AUDIO = "cell_home_audio";
 const CELLS_BOTTOM = "cells_bottom";
+const ARROW_BTN = "arrow_btn";
+const FIRE_BTN = "fire_btn";
 const CELL_ANIMATION = "cell_anim";
 
 const CELL_ANIMATION_KEY = "cell_animation_key";
@@ -29,4 +31,6 @@ export {
   CELL_ANIMATION,
   CELL_ANIMATION_KEY,
   FIRE_ANIMATION_KEY,
+  ARROW_BTN,
+  FIRE_BTN,
 };
