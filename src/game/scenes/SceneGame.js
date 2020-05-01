@@ -21,6 +21,7 @@ import { addRandomCharacter, addToiletPaper } from "../gameElements/characters";
 import { addBckTiles, addBottomTiles } from "../gameElements/backgroundTiles";
 import { hitCharacter, fireBullet } from "../gameElements/shooting";
 import { loadAnimation, scaleImgToGameH, animComplete } from "../utils/helpers";
+import { addEvents } from "../gameElements/events";
 export default class SceneGame extends Phaser.Scene {
   preload() {
     this.load.image(BULLET, "img/laserBlue02.png");
@@ -54,7 +55,7 @@ export default class SceneGame extends Phaser.Scene {
 
     addRandomCharacter(this);
     addPointsText(this);
-    this.addEvents();
+    addEvents(this);
 
     loadAnimation(TOILET_PAPER, FIRE_ANIMATION_KEY, this);
     addToiletPaper(this);
@@ -117,19 +118,5 @@ export default class SceneGame extends Phaser.Scene {
     ) {
       this.toiletPaper.x += MOVE_SPEED;
     }
-  }
-
-  addEvents() {
-    this.inputKeys = [
-      this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
-      this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER),
-    ];
-
-    this.timer = this.time.addEvent({
-      delay: 3000,
-      callback: () => addRandomCharacter(this),
-      callbackScope: this,
-      loop: true,
-    });
   }
 }
