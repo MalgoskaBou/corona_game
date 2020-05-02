@@ -3,6 +3,7 @@ import { IonPhaser } from "@ion-phaser/react";
 import { config } from "./game/config";
 import { useSelector } from "react-redux";
 import { getPoints } from "./redux/reducers/pointReducer";
+import { isMobileDevice } from "./game/utils/isMobile";
 
 const reactDiv = {
   display: "flex",
@@ -34,15 +35,17 @@ const App = () => {
   return (
     <div style={reactDiv}>
       {pGame}
-      <div style={infoDiv}>
-        <p>points {points || 0}</p>
-        <p>
-          Morduj wirusa -> <img src="img/virus.png" style={img} />
-        </p>
-        <p>
-          Nie morduj komórki -> <img src="img/cell.png" style={img} />
-        </p>
-      </div>
+      {isMobileDevice() ? null : (
+        <div style={infoDiv}>
+          <p>points {points || 0}</p>
+          <p>
+            Morduj wirusa -> <img src="img/virus.png" style={img} />
+          </p>
+          <p>
+            Nie morduj komórki -> <img src="img/cell.png" style={img} />
+          </p>
+        </div>
+      )}
     </div>
   );
 };
