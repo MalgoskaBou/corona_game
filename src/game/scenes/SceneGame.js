@@ -65,7 +65,9 @@ export default class SceneGame extends Phaser.Scene {
     loadAnimation(CELL_ANIMATION, CELL_ANIMATION_KEY, this);
 
     addPointsText(this);
-    addButtons(this);
+
+    this.buttonIsPressed = { right: false, left: false };
+    addButtons(this.buttonIsPressed, this);
 
     addEvents(this);
 
@@ -105,13 +107,13 @@ export default class SceneGame extends Phaser.Scene {
     });
 
     if (
-      this.cursor.left.isDown &&
+      (this.cursor.left.isDown || this.buttonIsPressed.left) &&
       this.toiletPaper.x > this.toiletPaper.displayWidth / 2
     ) {
       this.toiletPaper.x -= MOVE_SPEED;
     }
     if (
-      this.cursor.right.isDown &&
+      (this.cursor.right.isDown || this.buttonIsPressed.right) &&
       this.toiletPaper.x <
         this.cameras.main.width - this.toiletPaper.displayWidth / 2
     ) {

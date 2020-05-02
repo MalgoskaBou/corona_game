@@ -1,7 +1,7 @@
 import { ARROW_BTN, FIRE_BTN } from "../utils/const";
 import { fireBullet } from "../gameElements/shooting";
 
-export const addButtons = (context) => {
+export const addButtons = (isPressed, context) => {
   const fire = context.add
     .image(
       context.cameras.main.width / 2,
@@ -30,7 +30,11 @@ export const addButtons = (context) => {
     .setDepth(1)
     .setFlipX(true);
 
-  arrowR.setInteractive().on("pointerdown", () => context.toiletPaper.x++);
-  arrowL.setInteractive();
+  arrowR.setInteractive().on("pointerdown", () => (isPressed.right = true));
+  arrowL.setInteractive().on("pointerdown", () => (isPressed.left = true));
+
+  arrowR.setInteractive().on("pointerup", () => (isPressed.right = false));
+  arrowL.setInteractive().on("pointerup", () => (isPressed.left = false));
+
   fire.setInteractive().on("pointerdown", () => fireBullet(context));
 };
