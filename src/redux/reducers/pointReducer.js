@@ -9,4 +9,4 @@ export function pointReducer(state = {}, action) {
   }
 }
 
-export const getPoints = (state) => state.points;
+export const getPoints = (state) => state.totalPoints.points;

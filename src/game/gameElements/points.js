@@ -1,6 +1,6 @@
 import { scaleTextToGameH } from "../utils/helpers";
 import { store } from "../../redux/store";
-import { updatePoints as updatePointsAction } from "../../redux/actions/updatePoints";
+import { updatePointsAction } from "../../redux/actions/updatePointsAction";
 import { getPoints } from "../../redux/reducers/pointReducer";
 
 export const addPointsText = (context) => {

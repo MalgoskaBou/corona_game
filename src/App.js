@@ -1,8 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { IonPhaser } from "@ion-phaser/react";
 import { config } from "./game/config";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getPoints } from "./redux/reducers/pointReducer";
+import { isMobileAction } from "./redux/actions/isMobileAction";
+import { isMobileDevice } from "./game/utils/isMobile";
 
 const reactDiv = {
   display: "flex",
@@ -20,6 +22,13 @@ const img = {
 };
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const isMobile = isMobileDevice();
+    dispatch(isMobileAction(isMobile));
+  }, [dispatch]);
+
   const state = {
     initialize: true,
     game: config,
@@ -27,7 +36,7 @@ const App = () => {
   const points = useSelector(getPoints);
   const { initialize, game } = state;
   const pGame = useMemo(
-    () => <IonPhaser game={game} initialize={initialize} />,
+    () => <IonPhaser game={{ ...game }} initialize={initialize} />,
     [initialize, game]
   );
 

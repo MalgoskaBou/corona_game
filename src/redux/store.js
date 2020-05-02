@@ -1,4 +1,4 @@
 import { createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { pointReducer } from "./reducers/pointReducer";
-export const store = createStore(pointReducer, composeWithDevTools());
+import reducers from "./reducers/index";
+export const store = createStore(reducers, composeWithDevTools());
