@@ -1,4 +1,4 @@
-import { scaleTextToGameH } from "../utils/helpers";
+import { countSizeToGameH } from "../utils/helpers";
 import { store } from "../../redux/store";
 import { updatePoints as updatePointsAction } from "../../redux/actions/updatePoints";
 import { getPoints } from "../../redux/reducers/pointReducer";
@@ -6,7 +6,7 @@ import { getPoints } from "../../redux/reducers/pointReducer";
 export const addPointsText = (context) => {
   context.pointsText = context.add.text(10, 10, "POINTS: 0", {
     color: "#000000",
-    fontSize: scaleTextToGameH(30, context),
+    fontSize: countSizeToGameH(30, context),
   });
 };
 

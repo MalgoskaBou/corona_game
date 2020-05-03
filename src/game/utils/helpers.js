@@ -3,7 +3,7 @@ export const getImageSize = (imgKey, scene) => ({
   height: scene.textures.get(imgKey).getSourceImage().height,
 });
 
-export const scaleTextToGameH = (scale, context) =>
+export const countSizeToGameH = (scale, context) =>
   context.cameras.main.height / scale;
 
 export const scaleImgToGameH = (scalePercent, imgKey, context) => {

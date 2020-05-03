@@ -1,4 +1,4 @@
-import { getImageSize } from "../utils/helpers";
+import { getImageSize, scaleImgToGameH } from "../utils/helpers";
 
 export const addBckTiles = (scale, imgKey, context) => {
   context.add
@@ -15,16 +15,17 @@ export const addBckTiles = (scale, imgKey, context) => {
 
 export const addBottomTiles = (scale, imgKey, context) => {
   const imgHeight = getImageSize(imgKey, context).height;
+  const scaleToGameSize = scaleImgToGameH(scale, imgKey, context);
 
   context.add
     .tileSprite(
       0,
       context.cameras.main.height,
-      context.cameras.main.width,
+      context.cameras.main.width / scaleToGameSize,
       imgHeight,
       imgKey
     )
     .setOrigin(0, 1)
-    .setScale(scale)
+    .setScale(scaleToGameSize)
     .setDepth(1);
 };

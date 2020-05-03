@@ -1,12 +1,16 @@
 import Phaser from "phaser";
 import { TOILET_PAPER, CELL, VIRUS } from "../utils/const";
-import { scaleImgToGameH, getImageSize } from "../utils/helpers";
+import {
+  scaleImgToGameH,
+  getImageSize,
+  countSizeToGameH,
+} from "../utils/helpers";
 
 export const addToiletPaper = (context) => {
   const centerX = context.cameras.main.width / 2;
   const bottom = context.cameras.main.height;
   context.toiletPaper = context.add
-    .sprite(centerX, bottom - 90, TOILET_PAPER)
+    .sprite(centerX, bottom - countSizeToGameH(10, context), TOILET_PAPER)
     .setScale(scaleImgToGameH(15, TOILET_PAPER, context))
     .setDepth(1);
 };
