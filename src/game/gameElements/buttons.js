@@ -3,7 +3,7 @@ import { fireBullet } from "../gameElements/shooting";
 import { scaleImgToGameH, countSizeToGameH } from "../utils/helpers";
 
 export const addButtons = (isPressed, context) => {
-  const scaleToGame = scaleImgToGameH(7, FIRE_BTN, context);
+  const scaleToGame = scaleImgToGameH(9, FIRE_BTN, context);
 
   const fire = context.add
     .image(

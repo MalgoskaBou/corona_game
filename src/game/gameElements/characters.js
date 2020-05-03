@@ -10,7 +10,7 @@ export const addToiletPaper = (context) => {
   const centerX = context.cameras.main.width / 2;
   const bottom = context.cameras.main.height;
   context.toiletPaper = context.add
-    .sprite(centerX, bottom - countSizeToGameH(10, context), TOILET_PAPER)
+    .sprite(centerX, bottom - countSizeToGameH(8, context), TOILET_PAPER)
     .setScale(scaleImgToGameH(15, TOILET_PAPER, context))
     .setDepth(1);
 };

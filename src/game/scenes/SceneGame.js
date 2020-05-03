@@ -53,8 +53,9 @@ export default class SceneGame extends Phaser.Scene {
   }
 
   create() {
+    console.log("dpr ", window.devicePixelRatio);
     addBckTiles(0.3, CELL_BCK, this);
-    addBottomTiles(7, CELLS_BOTTOM, this);
+    addBottomTiles(9, CELLS_BOTTOM, this);
 
     this.bulletGroup = new BulletsGroup(this);
     this.charactersGroup = this.physics.add.group();
