@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { IonPhaser } from "@ion-phaser/react";
+import Div100vh from "react-div-100vh";
 import { config } from "./game/config";
 import { useSelector } from "react-redux";
 import { getPoints } from "./redux/reducers/pointReducer";
@@ -7,7 +8,6 @@ import { isMobileDevice } from "./game/utils/isMobile";
 
 const reactDiv = {
   display: "flex",
-  height: "100vh",
 };
 const infoDiv = {
   padding: "20px",
@@ -33,7 +33,7 @@ const App = () => {
   );
 
   return (
-    <div style={reactDiv}>
+    <Div100vh style={reactDiv}>
       {pGame}
       {isMobileDevice() ? null : (
         <div style={infoDiv}>
@@ -46,7 +46,7 @@ const App = () => {
           </p>
         </div>
       )}
-    </div>
+    </Div100vh>
   );
 };
 
